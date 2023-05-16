@@ -1,0 +1,35 @@
+@startuml
+
+interface IDigitalClock {
+    + SetTime(hour: int, minute: int, second: int): void
+    + GetTime(): string
+}
+
+class AnalogClock {
+    - _hourDegrees: int
+    - _minuteDegrees: int
+    - _secondDegrees: int
+    + SetDegrees(hourDegrees: int, minuteDegrees: int, secondDegrees: int): void
+    + GetHourDegrees(): int
+    + GetMinuteDegrees(): int
+    + GetSecondDegrees(): int
+}
+
+class ClockAdapter {
+    - _clock: AnalogClock
+    + ClockAdapter(clock: AnalogClock)
+    + SetTime(hour: int, minute: int, second: int): void
+    + GetTime(): string
+}
+
+class Program {
+    + Main(): void
+}
+
+IDigitalClock <|.. ClockAdapter
+ClockAdapter --> AnalogClock
+
+Program --> IDigitalClock: digitalClock
+Program --> AnalogClock: clock
+
+@enduml
